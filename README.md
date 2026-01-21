@@ -17,26 +17,26 @@ A Svelte 5 component for integrating [TrustCaptcha](https://www.trustcomponent.c
 ## Installation
 
 ```bash
-npm install trustcomponent
+npm install trustcaptcha-svelte
 ```
 
 or
 
 ```bash
-pnpm add trustcomponent
+pnpm add trustcaptcha-svelte
 ```
 
 or
 
 ```bash
-yarn add trustcomponent
+yarn add trustcaptcha-svelte
 ```
 
 ## Basic Usage
 
 ```svelte
 <script lang="ts">
-	import { TrustCaptcha } from 'trustcomponent';
+	import { TrustCaptcha } from 'trustcaptcha-svelte';
 </script>
 
 <form>
@@ -79,7 +79,7 @@ You can call these methods using a component reference:
 
 ```svelte
 <script lang="ts">
-	import { TrustCaptcha } from 'trustcomponent';
+	import { TrustCaptcha } from 'trustcaptcha-svelte';
 
 	let captchaRef: { startVerification: () => void; reset: () => void } | undefined;
 
@@ -115,7 +115,7 @@ import type {
 	CustomTranslation,
 	CustomDesign,
 	ThemeColors
-} from 'trustcomponent';
+} from 'trustcaptcha-svelte';
 ```
 
 ## Links
