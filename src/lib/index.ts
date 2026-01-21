@@ -77,6 +77,8 @@ export interface TrustCaptchaProps {
 	oncaptchaFailed?: (event: CustomEvent<CaptchaError>) => void;
 	/** Triggered when the CAPTCHA is reset to the start setting. */
 	oncaptchaReset?: (event: CustomEvent) => void;
+	/** Custom CSS class for the TrustCaptcha component. */
+	class?: string;
 }
 
 export interface CaptchaError {
