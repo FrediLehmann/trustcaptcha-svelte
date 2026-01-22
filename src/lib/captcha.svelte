@@ -70,11 +70,13 @@
 </script>
 
 <svelte:head>
+	<!-- eslint-disable svelte/no-useless-mustaches -->
 	<script
 		onload={onScriptLoad}
-		type="module"
+		type={'module'}
 		src="https://cdn.trustcomponent.com/trustcaptcha/2.1.x/trustcaptcha.esm.min.js"
 	></script>
+	<!-- eslint-enable svelte/no-useless-mustaches -->
 </svelte:head>
 
 <trustcaptcha-component
