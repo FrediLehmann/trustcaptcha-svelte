@@ -1,15 +1,17 @@
 name: Publish to NPM
 
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   publish:
-    name: Publish Package
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
 
     steps:
       - name: Checkout code
@@ -45,4 +47,4 @@ jobs:
           PUBLIC_TRUST_CAPTCHA_KEY: ${{ secrets.PUBLIC_TRUST_CAPTCHA_KEY }}
 
       - name: Publish to NPM
-        run: pnpm publish --access public
+        run: pnpm publish
