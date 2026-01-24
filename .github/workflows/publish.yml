@@ -48,4 +48,4 @@ jobs:
           PUBLIC_TRUST_CAPTCHA_KEY: ${{ secrets.PUBLIC_TRUST_CAPTCHA_KEY }}
 
       - name: Publish to NPM
-        run: pnpm publish
+        run: pnpm publish --provenance --no-git-checks
