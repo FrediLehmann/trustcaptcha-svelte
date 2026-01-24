@@ -1,6 +1,6 @@
 {
 	"name": "trustcaptcha-svelte",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"license": "MIT",
 	"description": "A Svelte 5 component for integrating TrustCaptcha CAPTCHA widget into your Svelte applications",
 	"author": "Frederic Lehmann",
