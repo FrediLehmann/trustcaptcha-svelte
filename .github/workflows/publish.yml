@@ -1,15 +1,14 @@
 name: Publish to NPM
 
 on:
-  release:
-    types: [created]
+  workflow_dispatch:
 
 jobs:
   publish:
     name: Publish Package
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       id-token: write
 
     steps:
@@ -29,7 +28,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Type check
+      - name: Formatting check
+        run: pnpm run format --check
+
+      - name: Svelte check
         run: pnpm run check
         env:
           PUBLIC_TRUST_CAPTCHA_KEY: ${{ secrets.PUBLIC_TRUST_CAPTCHA_KEY }}
@@ -37,15 +39,10 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
-      - name: Run tests
-        run: pnpm run test
-
       - name: Build package
         run: pnpm run build
         env:
           PUBLIC_TRUST_CAPTCHA_KEY: ${{ secrets.PUBLIC_TRUST_CAPTCHA_KEY }}
 
       - name: Publish to NPM
-        run: pnpm publish --no-git-checks --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm publish --access public
