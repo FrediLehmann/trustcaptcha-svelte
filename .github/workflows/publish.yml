@@ -39,4 +39,4 @@ jobs:
             dist/*
 
       - name: Publish to NPM
-        run: pnpm publish
+        run: pnpm publish --no-git-checks
