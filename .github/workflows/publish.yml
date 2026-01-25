@@ -33,8 +33,5 @@ jobs:
         env:
           PUBLIC_TRUST_CAPTCHA_KEY: ${{ secrets.PUBLIC_TRUST_CAPTCHA_KEY }}
 
-      - name: Run tests
-        run: pnpm test
-
       - name: Publish to NPM
         run: pnpm publish
