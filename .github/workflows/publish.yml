@@ -4,11 +4,10 @@ on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch:
 
 permissions:
   id-token: write
-  contents: read
+  contents: write
 
 jobs:
   publish:
@@ -32,6 +31,12 @@ jobs:
         run: pnpm run build
         env:
           PUBLIC_TRUST_CAPTCHA_KEY: ${{ secrets.PUBLIC_TRUST_CAPTCHA_KEY }}
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*
 
       - name: Publish to NPM
         run: pnpm publish
