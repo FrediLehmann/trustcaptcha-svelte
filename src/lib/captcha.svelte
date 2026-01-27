@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import type { TrustCaptchaProps } from './index.js';
 
 	let {
@@ -19,9 +20,8 @@
 	}: TrustCaptchaProps = $props();
 
 	let captchaElement: HTMLElement | null = $state(null);
-	let scriptLoaded = $state(
-		typeof customElements !== 'undefined' && !!customElements.get('trustcaptcha-component')
-	);
+	let mounted = $state(false);
+	let scriptLoaded = $state(false);
 
 	const customTranslationsStr = $derived(
 		typeof customTranslations === 'object' ? JSON.stringify(customTranslations) : customTranslations
@@ -31,12 +31,31 @@
 		typeof customDesign === 'object' ? JSON.stringify(customDesign) : customDesign
 	);
 
-	function onScriptLoad() {
-		scriptLoaded = true;
-	}
+	onMount(() => {
+		mounted = true;
+
+		if (typeof customElements !== 'undefined' && customElements.get('trustcaptcha-component')) {
+			scriptLoaded = true;
+			return;
+		}
+
+		const script = document.createElement('script');
+		script.type = 'module';
+		script.src = 'https://cdn.trustcomponent.com/trustcaptcha/2.1.x/trustcaptcha.esm.min.js';
+		script.onload = () => {
+			scriptLoaded = true;
+		};
+		document.head.appendChild(script);
+
+		return () => {
+			if (script.parentNode) {
+				script.parentNode.removeChild(script);
+			}
+		};
+	});
 
 	$effect(() => {
-		if (!captchaElement || !scriptLoaded) return;
+		if (!captchaElement || !scriptLoaded || !mounted) return;
 
 		const handlers: Record<string, EventListener | undefined> = {
 			captchaStarted: oncaptchaStarted as EventListener | undefined,
@@ -69,26 +88,18 @@
 	}
 </script>
 
-<svelte:head>
-	<!-- eslint-disable svelte/no-useless-mustaches -->
-	<script
-		onload={onScriptLoad}
-		type={'module'}
-		src="https://cdn.trustcomponent.com/trustcaptcha/2.1.x/trustcaptcha.esm.min.js"
-	></script>
-	<!-- eslint-enable svelte/no-useless-mustaches -->
-</svelte:head>
-
-<trustcaptcha-component
-	bind:this={captchaElement}
-	autostart={autostart ? undefined : 'false'}
-	hide-branding={hideBranding ? 'true' : undefined}
-	invisible={invisible ? 'true' : undefined}
-	invisible-hint={invisibleHint}
-	bypass-token={bypassToken}
-	token-field-name={tokenFieldName}
-	custom-translations={customTranslationsStr}
-	custom-design={customDesignStr}
-	privacy-url={privacyUrl}
-	{...rest}
-></trustcaptcha-component>
+{#if mounted && scriptLoaded}
+	<trustcaptcha-component
+		bind:this={captchaElement}
+		autostart={autostart ? undefined : 'false'}
+		hide-branding={hideBranding ? 'true' : undefined}
+		invisible={invisible ? 'true' : undefined}
+		invisible-hint={invisibleHint}
+		bypass-token={bypassToken}
+		token-field-name={tokenFieldName}
+		custom-translations={customTranslationsStr}
+		custom-design={customDesignStr}
+		privacy-url={privacyUrl}
+		{...rest}
+	></trustcaptcha-component>
+{/if}
