@@ -16,6 +16,7 @@
 		oncaptchaSolved,
 		oncaptchaFailed,
 		oncaptchaReset,
+		children,
 		...rest
 	}: TrustCaptchaProps = $props();
 
@@ -102,4 +103,6 @@
 		privacy-url={privacyUrl}
 		{...rest}
 	></trustcaptcha-component>
+{:else}
+	{@render children?.()}
 {/if}

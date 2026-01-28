@@ -165,6 +165,20 @@
 				</div>
 			</form>
 		</section>
+
+		<section class="card">
+			<h2>8. Loading Placeholder</h2>
+			<p>Skeleton UI matching CAPTCHA dimensions.</p>
+			<form onsubmit={(e) => e.preventDefault()}>
+				<Captcha
+					sitekey={PUBLIC_TRUST_CAPTCHA_KEY}
+					oncaptchaStarted={() => logEvent('Loading Skeleton: captchaStarted')}
+					oncaptchaSolved={() => logEvent('Loading Skeleton: captchaSolved')}
+				>
+					<div class="loading-skeleton"></div>
+				</Captcha>
+			</form>
+		</section>
 	</div>
 </main>
 
@@ -251,5 +265,22 @@
 
 	.button-group {
 		margin-top: 12px;
+	}
+
+	.loading-skeleton {
+		height: 58px;
+		background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+		background-size: 200% 100%;
+		animation: shimmer 1.5s infinite;
+		border-radius: 6px;
+	}
+
+	@keyframes shimmer {
+		0% {
+			background-position: 200% 0;
+		}
+		100% {
+			background-position: -200% 0;
+		}
 	}
 </style>

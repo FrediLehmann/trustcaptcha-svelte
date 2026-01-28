@@ -1,4 +1,5 @@
 export { default as TrustCaptcha } from './captcha.svelte';
+import type { Snippet } from 'svelte';
 
 export interface TrustCaptchaProps {
 	/** Sitekey of the TrustCaptcha. You can find this on the administration page of your TrustCaptcha. */
@@ -79,6 +80,8 @@ export interface TrustCaptchaProps {
 	oncaptchaReset?: (event: CustomEvent) => void;
 	/** Custom CSS class for the TrustCaptcha component. */
 	class?: string;
+	/** Optional loading placeholder content shown while the CAPTCHA script is loading. */
+	children?: Snippet;
 }
 
 export interface CaptchaError {

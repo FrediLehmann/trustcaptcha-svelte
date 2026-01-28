@@ -65,6 +65,7 @@ yarn add trustcaptcha-svelte
 | `customTranslations` | `string \| CustomTranslation[]`                            | -                         | Custom text translations                                |
 | `customDesign`       | `string \| CustomDesign`                                   | -                         | Custom design configuration (requires license)          |
 | `privacyUrl`         | `string`                                                   | -                         | Link to your privacy policy (requires license)          |
+| `children`           | `Snippet`                                                  | -                         | Optional loading placeholder content                    |
 
 ## Events
 
@@ -104,6 +105,22 @@ You can call these methods using a component reference:
 
 - `startVerification()` - Manually start the CAPTCHA verification
 - `reset()` - Reset the CAPTCHA to initial state
+
+## Loading Placeholder
+
+You can provide custom loading UI that displays while the CAPTCHA script is loading:
+
+```svelte
+<script lang="ts">
+	import { TrustCaptcha } from 'trustcaptcha-svelte';
+</script>
+
+<TrustCaptcha sitekey="your_site_key_here">
+	<div>Loading CAPTCHA...</div>
+</TrustCaptcha>
+```
+
+The loading placeholder will be displayed until the TrustCaptcha script is fully loaded and the component is mounted. If no children are provided, nothing will render during the loading phase.
 
 ## TypeScript Support
 
