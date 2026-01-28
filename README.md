@@ -1,5 +1,7 @@
 # TrustCaptcha for Svelte
 
+> **Note:** This is a community integration, not officially maintained by TrustCaptcha.
+
 A Svelte 5 component for integrating [TrustCaptcha](https://www.trustcomponent.com/) CAPTCHA widget into your Svelte applications.
 
 ## Features
